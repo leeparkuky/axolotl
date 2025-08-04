@@ -649,7 +649,9 @@ class HFCausalTrainerBuilder(TrainerBuilderBase):
             training_arguments_kwargs["max_length"] = self.cfg.sequence_len
 
         # Handle custom optimizer
-        custom_supported_optimizers = [opt.value for opt in CustomSupportedOptimizers]
+        custom_supported_optimizers = [
+            opt.value for opt in CustomSupportedOptimizers
+        ] + ["adamw_bayes"]  # this is the change for Lee Park
         if self.cfg.optimizer in custom_supported_optimizers:
             # Common optimizer kwargs
             optimizer_kwargs = {
@@ -722,7 +724,13 @@ class HFCausalTrainerBuilder(TrainerBuilderBase):
                 adam_kwargs["eps"] = (eps1, eps2)
 
                 optimizer_kwargs.update(adam_kwargs)
+            elif self.cfg.optimizer == "adamw_bayes":  # Lee Park
+                from axolotl.utils.optimizers.adamw_bayes import (
+                    AdamWBayes,
+                )  # Lee Park (#todo; add adamw_bayes in axolotl.utils.optimizers)
 
+                optimizer_cls = AdamWBayes
+                optimizer_kwargs.update(adam_kwargs)
             # Parse any additional optimizer args from config
             if self.cfg.optim_args:
                 if isinstance(self.cfg.optim_args, dict):
