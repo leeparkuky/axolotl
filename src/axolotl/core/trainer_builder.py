@@ -731,6 +731,7 @@ class HFCausalTrainerBuilder(TrainerBuilderBase):
 
                 optimizer_cls = AdamWBayes
                 optimizer_kwargs.update(adam_kwargs)
+
             # Parse any additional optimizer args from config
             if self.cfg.optim_args:
                 if isinstance(self.cfg.optim_args, dict):

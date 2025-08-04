@@ -55,3 +55,4 @@ class CustomSupportedOptimizers(str, Enum):
     adopt_adamw = "adopt_adamw"  # pylint: disable=invalid-name
     came_pytorch = "came_pytorch"  # pylint: disable=invalid-name
     muon = "muon"  # pylint: disable=invalid-name
+    adamw_bayes = "adamw_bayes"  # adding adamw_bayes optimizer by Lee Park

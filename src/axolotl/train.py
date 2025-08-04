@@ -116,9 +116,6 @@ def setup_reference_model(
             # load the model again for model_ref/baseline
             model_ref, _ = load_model(cfg, tokenizer, reference_model=True)
 
-    if cfg.reference_optimizer:
-        # if reference_optimizer is set, we need to freeze the model_ref
-        model_ref, _ = load_model(cfg, tokenizer, reference_model=True)
     return model_ref
 
 
